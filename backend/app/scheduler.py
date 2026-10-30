@@ -1,0 +1,125 @@
+
+import logging
+import time
+from datetime import datetime, timedelta, timezone
+
+from apscheduler.schedulers.background import BackgroundScheduler
+
+from .agents.orchestration import (
+    claim_database_lock,
+    recover_stale_runs,
+    release_database_lock,
+    run_collection,
+)
+from .config import settings
+from .database import SessionLocal
+from .models import Article, ArticleAnalytics
+
+logger = logging.getLogger(__name__)
+scheduler = BackgroundScheduler()
+
+
+def scheduled_collection() -> None:
+    db = SessionLocal()
+    try:
+        run = run_collection(db)
+        logger.info(
+            "Scheduled collection completed: status=%s inserted=%s",
+            run.status,
+            run.inserted,
+        )
+    except Exception:
+        logger.exception("Scheduled collection failed")
+    finally:
+        db.close()
+
+
+def cleanup_old_news() -> None:
+    """Delete articles collected more than RETENTION_DAYS ago."""
+    retention_days = settings.retention_days
+
+    if retention_days <= 0:
+        logger.info("News retention cleanup skipped: RETENTION_DAYS is not enabled")
+        return
+
+    db = SessionLocal()
+    owner_id = -time.time_ns()
+    lock_acquired = False
+    try:
+        recover_stale_runs(db)
+        claim_database_lock(db, owner_id)
+        lock_acquired = True
+
+        cutoff = datetime.now(timezone.utc) - timedelta(days=retention_days)
+
+        old_article_ids = (
+            db.query(Article.id)
+            .filter(Article.first_fetched_at < cutoff)
+            .subquery()
+        )
+
+        # Delete analytics first because the model does not define
+        # an automatic database cascade for article analytics.
+        deleted_analytics = (
+            db.query(ArticleAnalytics)
+            .filter(ArticleAnalytics.article_id.in_(old_article_ids))
+            .delete(synchronize_session=False)
+        )
+
+        deleted_articles = (
+            db.query(Article)
+            .filter(Article.first_fetched_at < cutoff)
+            .delete(synchronize_session=False)
+        )
+
+        db.commit()
+
+        logger.info(
+            "News retention cleanup completed: deleted_articles=%s "
+            "deleted_analytics=%s retention_days=%s",
+            deleted_articles,
+            deleted_analytics,
+            retention_days,
+        )
+    except Exception:
+        db.rollback()
+        logger.exception("News retention cleanup failed")
+    finally:
+        if lock_acquired:
+            try:
+                release_database_lock(db, owner_id)
+            except Exception:
+                db.rollback()
+                logger.exception("News retention cleanup lock release failed")
+        db.close()
+
+
+def start_scheduler() -> None:
+    if settings.scheduler_enabled and not scheduler.running:
+        scheduler.add_job(
+            scheduled_collection,
+            "interval",
+            minutes=settings.collection_interval_minutes,
+            id="newsphere-collection",
+            replace_existing=True,
+            max_instances=1,
+            coalesce=True,
+        )
+
+        scheduler.add_job(
+            cleanup_old_news,
+            "interval",
+            hours=24,
+            id="newsphere-retention-cleanup",
+            replace_existing=True,
+            max_instances=1,
+            coalesce=True,
+        )
+
+        scheduler.start()
+        logger.info("NewsSphere scheduler started")
+
+
+def stop_scheduler() -> None:
+    if scheduler.running:
+        scheduler.shutdown(wait=False)

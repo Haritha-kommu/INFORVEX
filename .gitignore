@@ -1,0 +1,32 @@
+# Environment files and secrets
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Python environments, caches, and test output
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# JavaScript dependencies and build output
+node_modules/
+dist/
+dist-ssr/
+
+# Logs and local runtime output
+*.log
+logs/
+
+# Local databases and database exports
+*.db
+*.sqlite
+*.sqlite3
+*.dump
+backups/
+
+# Historical backups and patch snapshots
+**/*backup*/
+**/*patch*/

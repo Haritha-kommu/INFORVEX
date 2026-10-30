@@ -1,0 +1,1367 @@
+{
+  "dataset": "NewsSphere geographical reference",
+  "coverage": "All ISO 3166-1 country names; expanded Indian state/UT reference with selected district lists; other countries’ administrative coverage and some Indian district coverage remain partial.",
+  "countries": {
+    "Afghanistan": {
+      "states": {}
+    },
+    "Albania": {
+      "states": {}
+    },
+    "Algeria": {
+      "states": {}
+    },
+    "American Samoa": {
+      "states": {}
+    },
+    "Andorra": {
+      "states": {}
+    },
+    "Angola": {
+      "states": {}
+    },
+    "Anguilla": {
+      "states": {}
+    },
+    "Antarctica": {
+      "states": {}
+    },
+    "Antigua and Barbuda": {
+      "states": {}
+    },
+    "Argentina": {
+      "states": {}
+    },
+    "Armenia": {
+      "states": {}
+    },
+    "Aruba": {
+      "states": {}
+    },
+    "Australia": {
+      "states": {
+        "New South Wales": [
+          "Sydney"
+        ],
+        "Queensland": [
+          "Brisbane"
+        ],
+        "Victoria": [
+          "Melbourne"
+        ]
+      }
+    },
+    "Austria": {
+      "states": {}
+    },
+    "Azerbaijan": {
+      "states": {}
+    },
+    "Bahamas": {
+      "states": {}
+    },
+    "Bahrain": {
+      "states": {}
+    },
+    "Bangladesh": {
+      "states": {}
+    },
+    "Barbados": {
+      "states": {}
+    },
+    "Belarus": {
+      "states": {}
+    },
+    "Belgium": {
+      "states": {}
+    },
+    "Belize": {
+      "states": {}
+    },
+    "Benin": {
+      "states": {}
+    },
+    "Bermuda": {
+      "states": {}
+    },
+    "Bhutan": {
+      "states": {}
+    },
+    "Bolivia, Plurinational State of": {
+      "states": {}
+    },
+    "Bonaire, Sint Eustatius and Saba": {
+      "states": {}
+    },
+    "Bosnia and Herzegovina": {
+      "states": {}
+    },
+    "Botswana": {
+      "states": {}
+    },
+    "Bouvet Island": {
+      "states": {}
+    },
+    "Brazil": {
+      "states": {}
+    },
+    "British Indian Ocean Territory": {
+      "states": {}
+    },
+    "Brunei Darussalam": {
+      "states": {}
+    },
+    "Bulgaria": {
+      "states": {}
+    },
+    "Burkina Faso": {
+      "states": {}
+    },
+    "Burundi": {
+      "states": {}
+    },
+    "Cabo Verde": {
+      "states": {}
+    },
+    "Cambodia": {
+      "states": {}
+    },
+    "Cameroon": {
+      "states": {}
+    },
+    "Canada": {
+      "states": {
+        "British Columbia": [
+          "Vancouver"
+        ],
+        "Ontario": [
+          "Toronto"
+        ],
+        "Quebec": [
+          "Montreal"
+        ]
+      }
+    },
+    "Cayman Islands": {
+      "states": {}
+    },
+    "Central African Republic": {
+      "states": {}
+    },
+    "Chad": {
+      "states": {}
+    },
+    "Chile": {
+      "states": {}
+    },
+    "China": {
+      "states": {}
+    },
+    "Christmas Island": {
+      "states": {}
+    },
+    "Cocos (Keeling) Islands": {
+      "states": {}
+    },
+    "Colombia": {
+      "states": {}
+    },
+    "Comoros": {
+      "states": {}
+    },
+    "Congo": {
+      "states": {}
+    },
+    "Congo, The Democratic Republic of the": {
+      "states": {}
+    },
+    "Cook Islands": {
+      "states": {}
+    },
+    "Costa Rica": {
+      "states": {}
+    },
+    "Croatia": {
+      "states": {}
+    },
+    "Cuba": {
+      "states": {}
+    },
+    "Curaçao": {
+      "states": {}
+    },
+    "Cyprus": {
+      "states": {}
+    },
+    "Czechia": {
+      "states": {}
+    },
+    "Côte d'Ivoire": {
+      "states": {}
+    },
+    "Denmark": {
+      "states": {}
+    },
+    "Djibouti": {
+      "states": {}
+    },
+    "Dominica": {
+      "states": {}
+    },
+    "Dominican Republic": {
+      "states": {}
+    },
+    "Ecuador": {
+      "states": {}
+    },
+    "Egypt": {
+      "states": {}
+    },
+    "El Salvador": {
+      "states": {}
+    },
+    "Equatorial Guinea": {
+      "states": {}
+    },
+    "Eritrea": {
+      "states": {}
+    },
+    "Estonia": {
+      "states": {}
+    },
+    "Eswatini": {
+      "states": {}
+    },
+    "Ethiopia": {
+      "states": {}
+    },
+    "Falkland Islands (Malvinas)": {
+      "states": {}
+    },
+    "Faroe Islands": {
+      "states": {}
+    },
+    "Fiji": {
+      "states": {}
+    },
+    "Finland": {
+      "states": {}
+    },
+    "France": {
+      "states": {}
+    },
+    "French Guiana": {
+      "states": {}
+    },
+    "French Polynesia": {
+      "states": {}
+    },
+    "French Southern Territories": {
+      "states": {}
+    },
+    "Gabon": {
+      "states": {}
+    },
+    "Gambia": {
+      "states": {}
+    },
+    "Georgia": {
+      "states": {}
+    },
+    "Germany": {
+      "states": {
+        "Bavaria": [
+          "Munich"
+        ],
+        "Berlin": [
+          "Berlin"
+        ]
+      }
+    },
+    "Ghana": {
+      "states": {}
+    },
+    "Gibraltar": {
+      "states": {}
+    },
+    "Greece": {
+      "states": {}
+    },
+    "Greenland": {
+      "states": {}
+    },
+    "Grenada": {
+      "states": {}
+    },
+    "Guadeloupe": {
+      "states": {}
+    },
+    "Guam": {
+      "states": {}
+    },
+    "Guatemala": {
+      "states": {}
+    },
+    "Guernsey": {
+      "states": {}
+    },
+    "Guinea": {
+      "states": {}
+    },
+    "Guinea-Bissau": {
+      "states": {}
+    },
+    "Guyana": {
+      "states": {}
+    },
+    "Haiti": {
+      "states": {}
+    },
+    "Heard Island and McDonald Islands": {
+      "states": {}
+    },
+    "Holy See (Vatican City State)": {
+      "states": {}
+    },
+    "Honduras": {
+      "states": {}
+    },
+    "Hong Kong": {
+      "states": {}
+    },
+    "Hungary": {
+      "states": {}
+    },
+    "Iceland": {
+      "states": {}
+    },
+    "India": {
+      "states": {
+        "Andhra Pradesh": {
+          "aliases": [],
+          "districts": [
+            "Alluri Sitharama Raju",
+            "Anakapalli",
+            {
+              "name": "Ananthapuramu",
+              "aliases": [
+                "Anantapur"
+              ]
+            },
+            "Annamayya",
+            "Bapatla",
+            "Chittoor",
+            {
+              "name": "Dr. B. R. Ambedkar Konaseema",
+              "aliases": [
+                "Konaseema"
+              ]
+            },
+            "East Godavari",
+            "Eluru",
+            "Guntur",
+            "Kakinada",
+            "Krishna",
+            "Kurnool",
+            "Nandyal",
+            {
+              "name": "NTR",
+              "aliases": [
+                "Vijayawada"
+              ]
+            },
+            "Palnadu",
+            "Parvathipuram Manyam",
+            "Prakasam",
+            {
+              "name": "Sri Potti Sriramulu Nellore",
+              "aliases": [
+                "Nellore"
+              ]
+            },
+            "Sri Sathya Sai",
+            {
+              "name": "Srikakulam",
+              "aliases": [
+                "Ichchapuram",
+                "Ichapuram"
+              ]
+            },
+            "Tirupati",
+            {
+              "name": "Visakhapatnam",
+              "aliases": [
+                "Vizag"
+              ]
+            },
+            "Vizianagaram",
+            "West Godavari",
+            {
+              "name": "YSR Kadapa",
+              "aliases": [
+                "Kadapa",
+                "Cuddapah"
+              ]
+            }
+          ]
+        },
+        "Arunachal Pradesh": {
+          "aliases": [],
+          "districts": []
+        },
+        "Assam": {
+          "aliases": [],
+          "districts": []
+        },
+        "Bihar": {
+          "aliases": [],
+          "districts": []
+        },
+        "Chhattisgarh": {
+          "aliases": [],
+          "districts": []
+        },
+        "Goa": {
+          "aliases": [],
+          "districts": []
+        },
+        "Gujarat": {
+          "aliases": [],
+          "districts": []
+        },
+        "Haryana": {
+          "aliases": [],
+          "districts": []
+        },
+        "Himachal Pradesh": {
+          "aliases": [],
+          "districts": []
+        },
+        "Jharkhand": {
+          "aliases": [],
+          "districts": []
+        },
+        "Karnataka": {
+          "aliases": [],
+          "districts": [
+            "Bagalkot",
+            {
+              "name": "Ballari",
+              "aliases": [
+                "Bellary"
+              ]
+            },
+            {
+              "name": "Belagavi",
+              "aliases": [
+                "Belgaum"
+              ]
+            },
+            {
+              "name": "Bengaluru Rural",
+              "aliases": [
+                "Bangalore Rural"
+              ]
+            },
+            {
+              "name": "Bengaluru Urban",
+              "aliases": [
+                "Bangalore Urban",
+                "Bengaluru",
+                "Bangalore"
+              ]
+            },
+            "Bidar",
+            "Chamarajanagar",
+            "Chikkaballapur",
+            {
+              "name": "Chikkamagaluru",
+              "aliases": [
+                "Chikmagalur"
+              ]
+            },
+            "Chitradurga",
+            "Dakshina Kannada",
+            "Davanagere",
+            "Dharwad",
+            "Gadag",
+            "Hassan",
+            "Haveri",
+            {
+              "name": "Kalaburagi",
+              "aliases": [
+                "Gulbarga"
+              ]
+            },
+            {
+              "name": "Kodagu",
+              "aliases": [
+                "Coorg"
+              ]
+            },
+            "Kolar",
+            "Koppal",
+            "Mandya",
+            {
+              "name": "Mysuru",
+              "aliases": [
+                "Mysore"
+              ]
+            },
+            "Raichur",
+            "Ramanagara",
+            {
+              "name": "Shivamogga",
+              "aliases": [
+                "Shimoga"
+              ]
+            },
+            {
+              "name": "Tumakuru",
+              "aliases": [
+                "Tumkur"
+              ]
+            },
+            "Udupi",
+            "Uttara Kannada",
+            {
+              "name": "Vijayapura",
+              "aliases": [
+                "Bijapur"
+              ]
+            },
+            "Vijayanagara",
+            "Yadgir"
+          ]
+        },
+        "Kerala": {
+          "aliases": [],
+          "districts": []
+        },
+        "Madhya Pradesh": {
+          "aliases": [],
+          "districts": []
+        },
+        "Maharashtra": {
+          "aliases": [],
+          "districts": [
+            {
+              "name": "Ahilyanagar",
+              "aliases": [
+                "Ahmednagar"
+              ]
+            },
+            "Akola",
+            "Amravati",
+            "Beed",
+            "Bhandara",
+            "Buldhana",
+            "Chandrapur",
+            {
+              "name": "Chhatrapati Sambhajinagar",
+              "aliases": [
+                "Aurangabad"
+              ]
+            },
+            {
+              "name": "Dharashiv",
+              "aliases": [
+                "Osmanabad"
+              ]
+            },
+            "Dhule",
+            "Gadchiroli",
+            "Gondia",
+            "Hingoli",
+            "Jalgaon",
+            "Jalna",
+            "Kolhapur",
+            "Latur",
+            "Mumbai City",
+            "Mumbai Suburban",
+            "Nagpur",
+            "Nanded",
+            "Nandurbar",
+            "Nashik",
+            "Palghar",
+            "Parbhani",
+            "Pune",
+            "Raigad",
+            "Ratnagiri",
+            "Sangli",
+            "Satara",
+            "Sindhudurg",
+            "Solapur",
+            "Thane",
+            "Wardha",
+            "Washim",
+            "Yavatmal"
+          ]
+        },
+        "Manipur": {
+          "aliases": [],
+          "districts": []
+        },
+        "Meghalaya": {
+          "aliases": [],
+          "districts": []
+        },
+        "Mizoram": {
+          "aliases": [],
+          "districts": []
+        },
+        "Nagaland": {
+          "aliases": [],
+          "districts": []
+        },
+        "Odisha": {
+          "aliases": [
+            "Orissa"
+          ],
+          "districts": [
+            "Angul",
+            "Balangir",
+            "Balasore",
+            "Bargarh",
+            "Bhadrak",
+            "Boudh",
+            "Cuttack",
+            {
+              "name": "Deogarh",
+              "aliases": [
+                "Debagarh"
+              ]
+            },
+            "Dhenkanal",
+            "Gajapati",
+            "Ganjam",
+            "Jagatsinghpur",
+            "Jajpur",
+            "Jharsuguda",
+            "Kalahandi",
+            "Kandhamal",
+            "Kendrapara",
+            {
+              "name": "Kendujhar",
+              "aliases": [
+                "Keonjhar"
+              ]
+            },
+            {
+              "name": "Khordha",
+              "aliases": [
+                "Bhubaneswar"
+              ]
+            },
+            "Koraput",
+            "Malkangiri",
+            "Mayurbhanj",
+            "Nabarangpur",
+            "Nayagarh",
+            "Nuapada",
+            "Puri",
+            "Rayagada",
+            "Sambalpur",
+            {
+              "name": "Subarnapur",
+              "aliases": [
+                "Sonepur"
+              ]
+            },
+            "Sundargarh"
+          ]
+        },
+        "Punjab": {
+          "aliases": [],
+          "districts": []
+        },
+        "Rajasthan": {
+          "aliases": [],
+          "districts": []
+        },
+        "Sikkim": {
+          "aliases": [],
+          "districts": []
+        },
+        "Tamil Nadu": {
+          "aliases": [],
+          "districts": [
+            "Ariyalur",
+            "Chengalpattu",
+            {
+              "name": "Chennai",
+              "aliases": [
+                "Madras"
+              ]
+            },
+            "Coimbatore",
+            "Cuddalore",
+            "Dharmapuri",
+            "Dindigul",
+            "Erode",
+            "Kallakurichi",
+            {
+              "name": "Kancheepuram",
+              "aliases": [
+                "Kanchipuram"
+              ]
+            },
+            {
+              "name": "Kanniyakumari",
+              "aliases": [
+                "Kanyakumari"
+              ]
+            },
+            "Karur",
+            "Krishnagiri",
+            "Madurai",
+            "Mayiladuthurai",
+            "Nagapattinam",
+            "Namakkal",
+            {
+              "name": "Nilgiris",
+              "aliases": [
+                "The Nilgiris"
+              ]
+            },
+            "Perambalur",
+            {
+              "name": "Pudukkottai",
+              "aliases": [
+                "Pudukottai"
+              ]
+            },
+            "Ramanathapuram",
+            "Ranipet",
+            "Salem",
+            "Sivaganga",
+            "Tenkasi",
+            "Thanjavur",
+            "Theni",
+            {
+              "name": "Thoothukudi",
+              "aliases": [
+                "Tuticorin"
+              ]
+            },
+            {
+              "name": "Tiruchirappalli",
+              "aliases": [
+                "Tiruchi",
+                "Trichy"
+              ]
+            },
+            "Tirunelveli",
+            "Tirupattur",
+            "Tiruppur",
+            "Tiruvallur",
+            "Tiruvannamalai",
+            "Tiruvarur",
+            "Vellore",
+            {
+              "name": "Viluppuram",
+              "aliases": [
+                "Villupuram"
+              ]
+            },
+            "Virudhunagar"
+          ]
+        },
+        "Telangana": {
+          "aliases": [
+            "Telangana State"
+          ],
+          "districts": [
+            "Adilabad",
+            "Bhadradri Kothagudem",
+            "Hanumakonda",
+            "Hyderabad",
+            "Jagtial",
+            "Jangaon",
+            "Jayashankar Bhupalpally",
+            "Jogulamba Gadwal",
+            "Kamareddy",
+            "Karimnagar",
+            "Khammam",
+            "Kumuram Bheem Asifabad",
+            "Mahabubabad",
+            "Mahabubnagar",
+            "Mancherial",
+            "Medak",
+            "Medchal-Malkajgiri",
+            "Mulugu",
+            "Nagarkurnool",
+            "Nalgonda",
+            "Narayanpet",
+            "Nirmal",
+            "Nizamabad",
+            "Peddapalli",
+            "Rajanna Sircilla",
+            {
+              "name": "Rangareddy",
+              "aliases": [
+                "Ranga Reddy"
+              ]
+            },
+            "Sangareddy",
+            "Siddipet",
+            "Suryapet",
+            "Vikarabad",
+            "Wanaparthy",
+            "Warangal",
+            "Yadadri Bhuvanagiri"
+          ]
+        },
+        "Tripura": {
+          "aliases": [],
+          "districts": []
+        },
+        "Uttar Pradesh": {
+          "aliases": [],
+          "districts": []
+        },
+        "Uttarakhand": {
+          "aliases": [
+            "Uttaranchal"
+          ],
+          "districts": []
+        },
+        "West Bengal": {
+          "aliases": [],
+          "districts": []
+        },
+        "Andaman and Nicobar Islands": {
+          "aliases": [],
+          "districts": []
+        },
+        "Chandigarh": {
+          "aliases": [],
+          "districts": [
+            "Chandigarh"
+          ]
+        },
+        "Dadra and Nagar Haveli and Daman and Diu": {
+          "aliases": [
+            "Dadra and Nagar Haveli",
+            "Daman and Diu"
+          ],
+          "districts": []
+        },
+        "Delhi": {
+          "aliases": [
+            "National Capital Territory of Delhi"
+          ],
+          "districts": [
+            "Central Delhi",
+            "East Delhi",
+            "New Delhi",
+            "North Delhi",
+            "North East Delhi",
+            "North West Delhi",
+            "Shahdara",
+            "South Delhi",
+            "South East Delhi",
+            "South West Delhi",
+            "West Delhi"
+          ]
+        },
+        "Jammu and Kashmir": {
+          "aliases": [
+            "Jammu & Kashmir"
+          ],
+          "districts": []
+        },
+        "Ladakh": {
+          "aliases": [],
+          "districts": []
+        },
+        "Lakshadweep": {
+          "aliases": [],
+          "districts": [
+            "Lakshadweep"
+          ]
+        },
+        "Puducherry": {
+          "aliases": [
+            "Pondicherry"
+          ],
+          "districts": []
+        }
+      },
+      "aliases": [
+        "Republic of India"
+      ]
+    },
+    "Indonesia": {
+      "states": {}
+    },
+    "Iran, Islamic Republic of": {
+      "states": {}
+    },
+    "Iraq": {
+      "states": {}
+    },
+    "Ireland": {
+      "states": {}
+    },
+    "Isle of Man": {
+      "states": {}
+    },
+    "Israel": {
+      "states": {}
+    },
+    "Italy": {
+      "states": {}
+    },
+    "Jamaica": {
+      "states": {}
+    },
+    "Japan": {
+      "states": {
+        "Osaka": [
+          "Osaka"
+        ],
+        "Tokyo": [
+          "Tokyo"
+        ]
+      }
+    },
+    "Jersey": {
+      "states": {}
+    },
+    "Jordan": {
+      "states": {}
+    },
+    "Kazakhstan": {
+      "states": {}
+    },
+    "Kenya": {
+      "states": {}
+    },
+    "Kiribati": {
+      "states": {}
+    },
+    "Korea, Democratic People's Republic of": {
+      "states": {}
+    },
+    "Korea, Republic of": {
+      "states": {}
+    },
+    "Kuwait": {
+      "states": {}
+    },
+    "Kyrgyzstan": {
+      "states": {}
+    },
+    "Lao People's Democratic Republic": {
+      "states": {}
+    },
+    "Latvia": {
+      "states": {}
+    },
+    "Lebanon": {
+      "states": {}
+    },
+    "Lesotho": {
+      "states": {}
+    },
+    "Liberia": {
+      "states": {}
+    },
+    "Libya": {
+      "states": {}
+    },
+    "Liechtenstein": {
+      "states": {}
+    },
+    "Lithuania": {
+      "states": {}
+    },
+    "Luxembourg": {
+      "states": {}
+    },
+    "Macao": {
+      "states": {}
+    },
+    "Madagascar": {
+      "states": {}
+    },
+    "Malawi": {
+      "states": {}
+    },
+    "Malaysia": {
+      "states": {}
+    },
+    "Maldives": {
+      "states": {}
+    },
+    "Mali": {
+      "states": {}
+    },
+    "Malta": {
+      "states": {}
+    },
+    "Marshall Islands": {
+      "states": {}
+    },
+    "Martinique": {
+      "states": {}
+    },
+    "Mauritania": {
+      "states": {}
+    },
+    "Mauritius": {
+      "states": {}
+    },
+    "Mayotte": {
+      "states": {}
+    },
+    "Mexico": {
+      "states": {}
+    },
+    "Micronesia, Federated States of": {
+      "states": {}
+    },
+    "Moldova, Republic of": {
+      "states": {}
+    },
+    "Monaco": {
+      "states": {}
+    },
+    "Mongolia": {
+      "states": {}
+    },
+    "Montenegro": {
+      "states": {}
+    },
+    "Montserrat": {
+      "states": {}
+    },
+    "Morocco": {
+      "states": {}
+    },
+    "Mozambique": {
+      "states": {}
+    },
+    "Myanmar": {
+      "states": {}
+    },
+    "Namibia": {
+      "states": {}
+    },
+    "Nauru": {
+      "states": {}
+    },
+    "Nepal": {
+      "states": {}
+    },
+    "Netherlands": {
+      "states": {}
+    },
+    "New Caledonia": {
+      "states": {}
+    },
+    "New Zealand": {
+      "states": {}
+    },
+    "Nicaragua": {
+      "states": {}
+    },
+    "Niger": {
+      "states": {}
+    },
+    "Nigeria": {
+      "states": {}
+    },
+    "Niue": {
+      "states": {}
+    },
+    "Norfolk Island": {
+      "states": {}
+    },
+    "North Macedonia": {
+      "states": {}
+    },
+    "Northern Mariana Islands": {
+      "states": {}
+    },
+    "Norway": {
+      "states": {}
+    },
+    "Oman": {
+      "states": {}
+    },
+    "Pakistan": {
+      "states": {}
+    },
+    "Palau": {
+      "states": {}
+    },
+    "Palestine, State of": {
+      "states": {}
+    },
+    "Panama": {
+      "states": {}
+    },
+    "Papua New Guinea": {
+      "states": {}
+    },
+    "Paraguay": {
+      "states": {}
+    },
+    "Peru": {
+      "states": {}
+    },
+    "Philippines": {
+      "states": {}
+    },
+    "Pitcairn": {
+      "states": {}
+    },
+    "Poland": {
+      "states": {}
+    },
+    "Portugal": {
+      "states": {}
+    },
+    "Puerto Rico": {
+      "states": {}
+    },
+    "Qatar": {
+      "states": {}
+    },
+    "Romania": {
+      "states": {}
+    },
+    "Russian Federation": {
+      "states": {}
+    },
+    "Rwanda": {
+      "states": {}
+    },
+    "Réunion": {
+      "states": {}
+    },
+    "Saint Barthélemy": {
+      "states": {}
+    },
+    "Saint Helena, Ascension and Tristan da Cunha": {
+      "states": {}
+    },
+    "Saint Kitts and Nevis": {
+      "states": {}
+    },
+    "Saint Lucia": {
+      "states": {}
+    },
+    "Saint Martin (French part)": {
+      "states": {}
+    },
+    "Saint Pierre and Miquelon": {
+      "states": {}
+    },
+    "Saint Vincent and the Grenadines": {
+      "states": {}
+    },
+    "Samoa": {
+      "states": {}
+    },
+    "San Marino": {
+      "states": {}
+    },
+    "Sao Tome and Principe": {
+      "states": {}
+    },
+    "Saudi Arabia": {
+      "states": {}
+    },
+    "Senegal": {
+      "states": {}
+    },
+    "Serbia": {
+      "states": {}
+    },
+    "Seychelles": {
+      "states": {}
+    },
+    "Sierra Leone": {
+      "states": {}
+    },
+    "Singapore": {
+      "states": {}
+    },
+    "Sint Maarten (Dutch part)": {
+      "states": {}
+    },
+    "Slovakia": {
+      "states": {}
+    },
+    "Slovenia": {
+      "states": {}
+    },
+    "Solomon Islands": {
+      "states": {}
+    },
+    "Somalia": {
+      "states": {}
+    },
+    "South Africa": {
+      "states": {}
+    },
+    "South Georgia and the South Sandwich Islands": {
+      "states": {}
+    },
+    "South Sudan": {
+      "states": {}
+    },
+    "Spain": {
+      "states": {}
+    },
+    "Sri Lanka": {
+      "states": {}
+    },
+    "Sudan": {
+      "states": {}
+    },
+    "Suriname": {
+      "states": {}
+    },
+    "Svalbard and Jan Mayen": {
+      "states": {}
+    },
+    "Sweden": {
+      "states": {}
+    },
+    "Switzerland": {
+      "states": {}
+    },
+    "Syrian Arab Republic": {
+      "states": {}
+    },
+    "Taiwan, Province of China": {
+      "states": {}
+    },
+    "Tajikistan": {
+      "states": {}
+    },
+    "Tanzania, United Republic of": {
+      "states": {}
+    },
+    "Thailand": {
+      "states": {}
+    },
+    "Timor-Leste": {
+      "states": {}
+    },
+    "Togo": {
+      "states": {}
+    },
+    "Tokelau": {
+      "states": {}
+    },
+    "Tonga": {
+      "states": {}
+    },
+    "Trinidad and Tobago": {
+      "states": {}
+    },
+    "Tunisia": {
+      "states": {}
+    },
+    "Turkmenistan": {
+      "states": {}
+    },
+    "Turks and Caicos Islands": {
+      "states": {}
+    },
+    "Tuvalu": {
+      "states": {}
+    },
+    "Türkiye": {
+      "states": {}
+    },
+    "Uganda": {
+      "states": {}
+    },
+    "Ukraine": {
+      "states": {}
+    },
+    "United Arab Emirates": {
+      "states": {}
+    },
+    "United Kingdom": {
+      "states": {
+        "England": [
+          "Greater London"
+        ],
+        "Scotland": [
+          "City of Edinburgh"
+        ]
+      },
+      "aliases": [
+        "UK",
+        "Great Britain"
+      ]
+    },
+    "United States": {
+      "states": {
+        "California": [
+          "Los Angeles County",
+          "San Francisco County"
+        ],
+        "New York": [
+          "New York County"
+        ]
+      },
+      "aliases": [
+        "USA",
+        "US",
+        "United States of America"
+      ]
+    },
+    "United States Minor Outlying Islands": {
+      "states": {}
+    },
+    "Uruguay": {
+      "states": {}
+    },
+    "Uzbekistan": {
+      "states": {}
+    },
+    "Vanuatu": {
+      "states": {}
+    },
+    "Venezuela, Bolivarian Republic of": {
+      "states": {}
+    },
+    "Viet Nam": {
+      "states": {}
+    },
+    "Virgin Islands, British": {
+      "states": {}
+    },
+    "Virgin Islands, U.S.": {
+      "states": {}
+    },
+    "Wallis and Futuna": {
+      "states": {}
+    },
+    "Western Sahara": {
+      "states": {}
+    },
+    "Yemen": {
+      "states": {}
+    },
+    "Zambia": {
+      "states": {}
+    },
+    "Zimbabwe": {
+      "states": {}
+    },
+    "Åland Islands": {
+      "states": {}
+    }
+  },
+  "source": "Country names: ISO 3166-1, International Organization for Standardization (ISO OBP, https://www.iso.org/obp/ui/#search), downloaded via DataHub country-list mirror (https://datahub.io/core/country-list). Indian state and district labels are curated for NewsSphere and informed by public administrative references, including Open Admin Data (CC-BY-4.0, https://github.com/open-admin-data/india-administrative-divisions; dataset page listed last update 2026-08-20). Administrative naming and district coverage outside the listed areas remain partial; verify before production use.",
+  "last_checked": "2026-10-29"
+}
