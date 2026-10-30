@@ -215,12 +215,11 @@ def analyze_articles(
     try:
         nlp = spacy.load(settings.spacy_model)
 
-    except (OSError, IOError):
-        logger.warning(
-            "spaCy model %s is unavailable; entity extraction will be empty",
-            settings.spacy_model,
-        )
-        nlp = None
+    except (OSError, IOError) as exc:
+        raise RuntimeError(
+            f"News Analytics Agent spaCy model '{settings.spacy_model}' "
+            "is unavailable. Install the configured model."
+        ) from exc
 
     query = db.query(Article)
 

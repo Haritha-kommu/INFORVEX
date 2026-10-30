@@ -31,6 +31,7 @@ BASE_AGENT_NAMES = (
 # Keep this internal name for database and test compatibility.
 # The dashboard can display it as "NLP Agent".
 ANALYTICS_AGENT_NAME = "News Analytics Agent"
+ALL_AGENT_NAMES = BASE_AGENT_NAMES + (ANALYTICS_AGENT_NAME,)
 
 
 def _now() -> datetime:

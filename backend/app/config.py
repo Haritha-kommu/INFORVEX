@@ -36,7 +36,7 @@ class Settings:
     log_level: str = os.getenv("LOG_LEVEL", "INFO")
     kafka_bootstrap_servers: str = os.getenv("KAFKA_BOOTSTRAP_SERVERS", "localhost:9092")
     bigdata_enabled: bool = _bool_setting("BIGDATA_ENABLED")
-    analytics_enabled: bool = _bool_setting("ANALYTICS_ENABLED")
+    analytics_enabled: bool = _bool_setting("ANALYTICS_ENABLED", "true")
     spacy_model: str = os.getenv("SPACY_MODEL", "en_core_web_sm").strip()
 
 

@@ -1,9 +1,9 @@
-# NewsSphere backend
+# INFORVEX backend
 
 Create local configuration from the checked-in example:
 
 ```powershell
-cd C:\Users\harit\source\repos\NewsSphere\backend
+cd C:\Users\harit\source\repos\INFORVEX\backend
 Copy-Item .env.example .env
 ```
 
@@ -39,6 +39,34 @@ Run tests with:
 
 The verified suite contains focused isolated tests. It does not require
 or modify the development database.
+
+## Six-agent collection workflow
+
+The collection pipeline coordinates six agents. The monitoring API always
+exposes all six agents, including an `idle` NLP Agent when analytics execution
+has been explicitly disabled:
+
+1. **Orchestration Agent** creates and coordinates each collection run,
+   maintains run liveness, and records the final outcome.
+2. **Web News Scraping Agent** fetches the configured RSS/Atom feeds, records
+   feed-level successes and failures, and reports the retrieved article count.
+3. **Database Management Agent** normalizes article URLs, stores new articles,
+   and tracks inserted articles and normalized duplicates.
+4. **News Segregation Agent** assigns explainable rule-based categories to new
+   articles.
+5. **Geographical Filtering Agent** applies conservative location enrichment
+   from source metadata and supported contextual references.
+6. **NLP / News Analytics Agent** analyzes newly stored articles for
+   machine-generated sentiment, TF-IDF keywords, and spaCy entities.
+
+The normal workflow runs scraping first, then persistence, segregation,
+geographical filtering, and analytics. Analytics is enabled by default. When
+`ANALYTICS_ENABLED=false`, the first five agents still run and the analytics
+execution is intentionally skipped; the monitoring endpoint continues to
+report the six-agent set and shows the analytics agent as `idle`. If analytics
+dependencies or the configured spaCy model are unavailable, the analytics
+agent reports a failed status and warning while the other completed agents and
+their stored articles are preserved.
 
 ## Geographic reference and enrichment
 

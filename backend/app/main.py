@@ -12,7 +12,11 @@ from sqlalchemy.orm import Session
 
 from .agents.geographical_filtering import normalize_location
 from .agents.news_analytics import analyze_articles
-from .agents.orchestration import recover_stale_runs, run_collection
+from .agents.orchestration import (
+    ALL_AGENT_NAMES,
+    recover_stale_runs,
+    run_collection,
+)
 from .config import settings
 from .database import engine, ensure_schema, get_db
 from .geo_reference import GEOGRAPHY, canonical_name, geography_options, resolve_location
@@ -414,20 +418,14 @@ def dashboard_stats(db: Session = Depends(get_db)):
 def agent_status(db: Session = Depends(get_db)):
     recover_stale_runs(db)
 
-    agents = [
-        ("Orchestration Agent", "Orchestration Agent"),
-        ("Web News Scraping Agent", "Web News Scraping Agent"),
-        ("Database Management Agent", "Database Management Agent"),
-        ("News Segregation Agent", "News Segregation Agent"),
-        ("Geographical Filtering Agent", "Geographical Filtering Agent"),
-    ]
-
-    if settings.analytics_enabled:
-        agents.append(("News Analytics Agent", "NLP Agent"))
+    display_names = {
+        "News Analytics Agent": "NLP Agent",
+    }
 
     result = []
 
-    for database_name, display_name in agents:
+    for database_name in ALL_AGENT_NAMES:
+        display_name = display_names.get(database_name, database_name)
         execution = (
             db.query(AgentExecution)
             .filter_by(agent_name=database_name)

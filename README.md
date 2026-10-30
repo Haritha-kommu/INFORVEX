@@ -3,13 +3,15 @@
 INFORVEX is a local multi-agent news collection, deduplication, geographic
 filtering, and transparent rule-based segregation dashboard. It does not
 
-## Optional NLP analytics
+## NLP analytics
 
-Set `ANALYTICS_ENABLED=true` to add the sixth **News Analytics Agent** after
+The sixth **News Analytics Agent** is enabled by default and runs after
 geographical filtering. It analyzes stored articles once and records VADER
 sentiment, TF-IDF keywords, and spaCy entities in the additive
-`article_analytics` table. Install the English spaCy model in the backend
-environment before enabling it:
+`article_analytics` table. Set `ANALYTICS_ENABLED=false` to intentionally skip
+analytics execution. The monitoring API still exposes all six agents and shows
+the analytics agent as `idle` when it is disabled. Install the English spaCy
+model in the backend environment before running analytics:
 
 ```powershell
 .\.venv\Scripts\python.exe -m spacy download en_core_web_sm
@@ -27,23 +29,23 @@ The existing Python environment is reused. Configure the backend from its
 `.env.example`:
 
 ```powershell
-cd C:\Users\harit\source\repos\NewsSphere\backend
+cd C:\Users\harit\source\repos\INFORVEX\backend
 Copy-Item .env.example .env
 ```
 
 Edit `backend\.env` as needed:
 
 ```env
-DATABASE_URL=sqlite:///C:/Users/harit/source/repos/NewsSphere/backend/newsphere.db
+DATABASE_URL=sqlite:///C:/Users/harit/source/repos/INFORVEX/backend/newsphere.db
 NEWSSPHERE_FEEDS=https://feeds.bbci.co.uk/news/world/rss.xml,https://www.theguardian.com/world/rss,https://www.theguardian.com/business/rss,https://www.theguardian.com/technology/rss,https://www.theguardian.com/science/rss,https://www.theguardian.com/sport/rss,https://www.theguardian.com/film/rss,https://www.thehindu.com/news/national/feeder/default.rss
 FRONTEND_ORIGINS=http://localhost:5173,http://localhost:5174
 SCHEDULER_ENABLED=false
 COLLECTION_INTERVAL_MINUTES=120
 LOG_LEVEL=INFO
-RAW_DATA_DIRECTORY=C:/Users/harit/source/repos/NewsSphere/backend/data/raw
+RAW_DATA_DIRECTORY=C:/Users/harit/source/repos/INFORVEX/backend/data/raw
 KAFKA_BOOTSTRAP_SERVERS=localhost:9092
 BIGDATA_ENABLED=false
-ANALYTICS_ENABLED=false
+ANALYTICS_ENABLED=true
 SPACY_MODEL=en_core_web_sm
 ```
 
@@ -72,7 +74,7 @@ limits remain the operator's responsibility.
 Backend terminal:
 
 ```powershell
-cd C:\Users\harit\source\repos\NewsSphere\backend
+cd C:\Users\harit\source\repos\INFORVEX\backend
 .\.venv\Scripts\python.exe -m uvicorn app.main:app --reload
 ```
 
@@ -87,7 +89,7 @@ INFORVEX retains news for 7 days through the backend cleanup job.
 Frontend terminal:
 
 ```powershell
-cd C:\Users\harit\source\repos\NewsSphere\frontend
+cd C:\Users\harit\source\repos\INFORVEX\frontend
 npm run dev
 ```
 
@@ -99,7 +101,9 @@ URLs:
 
 ## Core workflow
 
-The five agents are recorded in `agent_executions` for every collection run:
+The collection workflow coordinates six agents. The first five execute in every
+normal collection run; the News Analytics Agent executes by default unless
+analytics has been explicitly disabled:
 
 1. **Orchestration Agent** coordinates the run and receives the final status.
 2. **Web News Scraping Agent** fetches configured RSS/Atom feeds with an
@@ -109,6 +113,10 @@ The five agents are recorded in `agent_executions` for every collection run:
 4. **News Segregation Agent** assigns explainable keyword categories.
 5. **Geographical Filtering Agent** normalizes only location metadata supplied
    by the source; it never invents missing locations.
+6. **News Analytics Agent** records machine-generated sentiment, keywords, and
+   entities when analytics is enabled and its dependencies and spaCy model are
+   available. If `ANALYTICS_ENABLED=false`, it is intentionally skipped while
+   remaining visible as `idle` in agent monitoring.
 
 Empty feed configuration is reported as a failed collection with skipped
 downstream stages. Partial feed failures produce a `partial` run and preserve
@@ -138,7 +146,7 @@ time in the UI.
 Run the isolated backend tests:
 
 ```powershell
-cd C:\Users\harit\source\repos\NewsSphere\backend
+cd C:\Users\harit\source\repos\INFORVEX\backend
 .\.venv\Scripts\python.exe -m pytest -v
 ```
 
@@ -151,21 +159,13 @@ Run backend compilation:
 Run frontend lint and production build:
 
 ```powershell
-cd C:\Users\harit\source\repos\NewsSphere\frontend
+cd C:\Users\harit\source\repos\INFORVEX\frontend
 npm run lint
 npm run build
 ```
 
-Verified in this implementation:
-
-- Backend: **11 passed, 1 installed Starlette/httpx deprecation warning**
-- Backend compile: **passed**
-- Frontend lint: **passed**
-- Frontend build: **passed** with a non-blocking Vite bundle-size warning
-- Real configured-feed validation: **8 feeds parsed successfully, including
-  the entertainment feed**
-- Final real collection run on the updated backend: **316 retrieved, 32
-  inserted, 284 normalized duplicates, 0 feed failures**
+Verification results are intentionally not recorded here; run the commands
+above against the current checkout.
 
 ## Optional Big Data modules
 
@@ -209,7 +209,7 @@ Before upgrading or manually editing the local database, make a copy with
 PowerShell. This does not alter the live database:
 
 ```powershell
-cd C:\Users\harit\source\repos\NewsSphere\backend
+cd C:\Users\harit\source\repos\INFORVEX\backend
 New-Item -ItemType Directory -Force .\backups
 Copy-Item .\newsphere.db ".\backups\newsphere-$(Get-Date -Format yyyyMMdd-HHmmss).db"
 ```

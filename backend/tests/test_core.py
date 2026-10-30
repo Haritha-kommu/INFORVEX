@@ -15,6 +15,7 @@ from app.agents.geographical_filtering import enrich_location, has_valid_locatio
 from app.agents.news_segregation import classify_article
 from app.agents.web_news_scraping import collect_feeds
 from app.agents import web_news_scraping
+from app.config import _bool_setting
 from app.database import Base, get_db
 from app.models import AgentExecution, Article, CollectionLock, CollectionRun
 
@@ -75,6 +76,28 @@ def test_system_status_endpoint_exposes_safe_scheduler_metadata(database):
     assert isinstance(payload["collection_interval_minutes"], int)
     assert isinstance(payload["configured_feed_count"], int)
     assert "admin_api_token" not in payload
+
+
+def test_agent_status_lists_all_six_agents_before_execution(database):
+    client, _ = database
+
+    response = client.get("/api/agents/status")
+
+    assert response.status_code == 200
+    assert [(item["name"], item["status"]) for item in response.json()] == [
+        ("Orchestration Agent", "idle"),
+        ("Web News Scraping Agent", "idle"),
+        ("Database Management Agent", "idle"),
+        ("News Segregation Agent", "idle"),
+        ("Geographical Filtering Agent", "idle"),
+        ("NLP Agent", "idle"),
+    ]
+
+
+def test_analytics_is_enabled_when_setting_is_unset(monkeypatch):
+    monkeypatch.delenv("ANALYTICS_ENABLED", raising=False)
+
+    assert _bool_setting("ANALYTICS_ENABLED", "true") is True
 
 
 def test_database_initialization_and_duplicate_urls(database):
@@ -473,6 +496,7 @@ def test_partial_collection_records_truthful_statuses(database, monkeypatch):
         "Database Management Agent": "completed",
         "News Segregation Agent": "completed",
         "Geographical Filtering Agent": "completed",
+        "NLP Agent": "idle",
     }
     sources = client.get("/api/sources").json()
     assert {source["url"]: source["status"] for source in sources if source["url"] in {"good", "bad"}} == {
@@ -535,7 +559,10 @@ def test_analytics_failure_is_warning_and_preserves_collected_article(database, 
         assert run.error == "News Analytics Agent: model unavailable"
 
 
-def test_analytics_disabled_preserves_five_agent_workflow(database, monkeypatch):
+def test_explicitly_disabled_analytics_is_reported_without_hiding_agent(
+    database,
+    monkeypatch,
+):
     client, session_factory = database
     configured = replace(orchestration.settings, feeds=("good",), analytics_enabled=False)
     monkeypatch.setattr(orchestration, "settings", configured)
@@ -550,13 +577,19 @@ def test_analytics_disabled_preserves_five_agent_workflow(database, monkeypatch)
 
     assert response.status_code == 200
     assert response.json()["status"] == "completed"
-    assert [item["name"] for item in client.get("/api/agents/status").json()] == [
+    statuses = {
+        item["name"]: item["status"]
+        for item in client.get("/api/agents/status").json()
+    }
+    assert set(statuses) == {
         "Orchestration Agent",
         "Web News Scraping Agent",
         "Database Management Agent",
         "News Segregation Agent",
         "Geographical Filtering Agent",
-    ]
+        "NLP Agent",
+    }
+    assert statuses["NLP Agent"] == "idle"
     with session_factory() as db:
         assert db.query(AgentExecution).filter_by(agent_name="News Analytics Agent").count() == 0
 

@@ -30,3 +30,18 @@ backups/
 # Historical backups and patch snapshots
 **/*backup*/
 **/*patch*/
+*.backup
+*.backup-*
+*.bak
+*.before-*
+*.ui-backup
+*.timezone-backup
+
+# Temporary review files and generated reports
+*.zip
+*.txt
+openapi-check.json
+
+# Keep project documentation
+!README.txt
+!LICENSE.txt
