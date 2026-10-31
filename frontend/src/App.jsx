@@ -485,6 +485,12 @@ function App() {
   const [refreshTick, setRefreshTick] = useState(0)
   const [notice, setNotice] = useState('')
   const [error, setError] = useState('')
+  const [adminToken, setAdminToken] = useState(
+    () => sessionStorage.getItem('inforvex_admin_token') || ''
+  )
+  const [tokenSaved, setTokenSaved] = useState(
+    () => Boolean(sessionStorage.getItem('inforvex_admin_token'))
+  )
   const pageSize = PAGE_SIZE
 
   const categoryRows = useMemo(() => {
@@ -626,13 +632,40 @@ function App() {
     setLoading(true)
   }
 
+  const saveAdminToken = () => {
+    const token = adminToken.trim()
+    if (!token) {
+      setError('Please enter the admin token.')
+      return
+    }
+    sessionStorage.setItem('inforvex_admin_token', token)
+    setAdminToken(token)
+    setTokenSaved(true)
+    setError('')
+    setNotice('Admin token saved for this browser session.')
+  }
+
+  const clearAdminToken = () => {
+    sessionStorage.removeItem('inforvex_admin_token')
+    setAdminToken('')
+    setTokenSaved(false)
+    setNotice('Admin token cleared.')
+  }
+
   const collect = async () => {
     if (collecting) return
     setCollecting(true)
     setError('')
     setNotice('Collection is running…')
     try {
-      const result = await request('/api/collection/run', { method: 'POST' })
+      const token = sessionStorage.getItem('inforvex_admin_token')
+      if (!token) {
+        throw new Error('Save your admin token in Settings before running collection.')
+      }
+      const result = await request('/api/collection/run', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}` },
+      })
       setNotice(`Collection ${result.status}: ${formatNumber(result.retrieved)} retrieved · ${formatNumber(result.inserted)} new · ${formatNumber(result.duplicates)} duplicates · ${formatNumber(result.failed)} failures`)
       setLoading(true)
       reload()
@@ -768,6 +801,40 @@ function App() {
               <StatCard icon={Server} label="Configured feeds" value={systemStatus ? formatNumber(systemStatus.configured_feed_count) : '—'} helper="RSS / Atom source URLs" tone="purple" />
               <StatCard icon={MapPin} label="Verified geographic coverage" value={stats ? formatNumber(stats.geographical_coverage) : '—'} helper="Articles with valid location metadata" tone="orange" />
               <StatCard icon={Database} label="Duplicates skipped" value={stats ? formatNumber(stats.duplicates) : '—'} helper="Repeated URLs not inserted again" tone="teal" />
+            </section>
+            <section className="panel">
+              <SectionHeading eyebrow="ADMINISTRATION" title="Administrator authentication" />
+              <p className="subtle-help">
+                Enter the admin token configured in the INFORVEX backend to authorize collection runs.
+              </p>
+              <label className="input-field">
+                <span>Admin API token</span>
+                <input
+                  type="password"
+                  value={adminToken}
+                  onChange={(event) => {
+                    setAdminToken(event.target.value)
+                    setTokenSaved(false)
+                  }}
+                  placeholder="Enter your Render admin token"
+                  autoComplete="new-password"
+                />
+              </label>
+              <div className="filter-footer">
+                <span>{tokenSaved ? 'Token saved for this browser session.' : 'Token not saved for this session.'}</span>
+                <div>
+                  <button type="button" className="button button-quiet" onClick={clearAdminToken}>
+                    Clear token
+                  </button>
+                  <button type="button" className="button button-primary" onClick={saveAdminToken}>
+                    Save admin token
+                  </button>
+                </div>
+              </div>
+              <div className="metadata-note">
+                <ShieldCheck size={17} />
+                <span>The token is stored in this browser session, not in the project source code. Use this only on a trusted device.</span>
+              </div>
             </section>
             <section className="panel"><SectionHeading eyebrow="AUTOMATION" title="Automatic collection schedule" /><div className="automation-overview"><div className="automation-status-block"><span className={`status-badge ${systemStatus?.scheduler_running && systemStatus?.scheduler_enabled ? 'success' : 'warning'}`}><i />{systemStatus?.scheduler_running && systemStatus?.scheduler_enabled ? 'Scheduled collection active' : 'Manual collection only'}</span><strong>{systemStatus?.scheduler_running && systemStatus?.scheduler_enabled ? `Collecting every ${systemStatus.collection_interval_minutes} minutes` : 'Automatic collection is currently off'}</strong><p>{systemStatus?.scheduler_running && systemStatus?.scheduler_enabled ? 'The backend scheduler runs collections at the configured interval while the backend process stays online.' : 'Enable the scheduler in backend/.env to collect news on a recurring schedule.'}</p></div><div className="automation-config"><div><span>Configured feeds</span><strong>{systemStatus ? formatNumber(systemStatus.configured_feed_count) : '—'}</strong></div><div><span>Interval</span><strong>{systemStatus ? `${systemStatus.collection_interval_minutes} min` : '—'}</strong></div><div><span>Scheduler process</span><strong>{systemStatus?.scheduler_running ? 'Running' : 'Stopped'}</strong></div></div></div><div className="metadata-note"><ShieldCheck size={17} /><span>News retention is configured for 7 days by the backend. This dashboard does not delete records; verify the backend retention process before relying on automatic cleanup.</span></div></section>
             <section className="panel"><SectionHeading eyebrow="CONFIGURED RSS / ATOM FEEDS" title="News source health" /><SourcePanel sources={sources} /></section>
