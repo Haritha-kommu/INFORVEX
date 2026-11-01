@@ -1,0 +1,23 @@
+
+name: INFORVEX Automatic News Collection
+
+on:
+  schedule:
+    - cron: "0 */2 * * *"
+  workflow_dispatch:
+
+jobs:
+  collect-news:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger INFORVEX collection
+        env:
+          ADMIN_TOKEN: ${{ secrets.INFORVEX_ADMIN_TOKEN }}
+        run: |
+          response=$(curl --silent --show-error --fail-with-body \
+            --request POST \
+            --header "Authorization: Bearer $ADMIN_TOKEN" \
+            --header "Accept: application/json" \
+            https://inforvex-backend.onrender.com/api/collection/run)
+
+          echo "$response"
