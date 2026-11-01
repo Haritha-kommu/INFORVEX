@@ -529,7 +529,16 @@ h1 { font-size: clamp(28px, 2.4vw, 32px); font-weight: 800; letter-spacing: -.7p
 .article-title, .table-article-title { font-size: 15px; font-weight: 600; }
 .article-date, .article-footer, .reader-filter-status, .geo-filter-feedback { font-size: 13px; }
 .brand-copy strong { font-size: 20px; letter-spacing: .2px; }
-.brand-copy span { font-size: 11px; }
+.brand-copy span {
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  max-width: 175px;
+}
 .sidebar-footer, .sidebar-status small { font-size: 12px; }
 
 /* High-contrast icon system for the dark dashboard theme. */
@@ -563,3 +572,107 @@ h1 { font-size: clamp(28px, 2.4vw, 32px); font-weight: 800; letter-spacing: -.7p
 .analytics-disclaimer svg { color: #55d6ff; }
 .feedback-banner.error-banner > svg, .agent-error svg { color: #ff7180; }
 .feedback-banner.success-banner > svg { color: #42d79b; }
+/* INFORVEX — Improved dark-theme readability */
+
+:root {
+  --ink: #f8fafc;
+  --muted: #d1dced;
+  --muted-light: #b8c8df;
+}
+
+/* General readable text */
+.main-area {
+  color: #f1f5ff;
+}
+
+.page-title-wrap > p,
+.page-intro-panel p,
+.reader-panel-heading span,
+.muted-paragraph {
+  color: #d1dced;
+  font-size: 14px;
+}
+
+/* Sidebar branding */
+.brand-copy strong {
+  color: #ffffff;
+  font-size: 21px;
+}
+
+.brand-copy span {
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  overflow: visible;
+  text-overflow: clip;
+}
+
+/* Navigation */
+.nav-item {
+  color: #f1f5ff;
+  font-size: 14px;
+}
+
+.sidebar-section-label {
+  color: #d1dced;
+  font-size: 11px;
+}
+
+/* Agent monitoring cards */
+.agent-card-heading > strong {
+  color: #ffffff;
+  font-size: 15px;
+}
+
+.agent-card > p {
+  color: #e2eaf7;
+  font-size: 13px;
+}
+
+.agent-card,
+.agent-summary-strip .stat-card {
+  color: #f8fafc;
+}
+
+.agent-card .agent-meta,
+.agent-card small,
+.agent-card time {
+  color: #d1dced;
+  font-size: 12px;
+}
+
+/* Statistics and labels */
+.stat-label,
+.stat-helper,
+.eyebrow,
+.breadcrumbs {
+  color: #d1dced;
+  font-size: 12px;
+}
+
+/* News and analytics */
+.article-summary,
+.article-footer,
+.article-date,
+.table-summary,
+.pagination,
+.activity-main span,
+.activity-row time {
+  color: #d1dced;
+  font-size: 13px;
+}
+
+/* Settings and source information */
+.source-info strong,
+.config-row strong,
+.automation-status-block > strong {
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.source-info > span,
+.config-row span,
+.automation-status-block > p {
+  color: #d1dced;
+  font-size: 13px;
+}
