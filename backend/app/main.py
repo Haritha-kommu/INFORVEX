@@ -3,6 +3,7 @@ import logging
 import json
 from collections import Counter
 from datetime import date, datetime, time, timedelta, timezone
+from zoneinfo import ZoneInfo
 from contextlib import asynccontextmanager
 
 from fastapi import Depends, FastAPI, Header, HTTPException, Query
@@ -380,7 +381,22 @@ def get_news(article_id: int, db: Session = Depends(get_db)):
 
 @app.get("/api/dashboard/stats")
 def dashboard_stats(db: Session = Depends(get_db)):
-    today_start = _utc_boundary(datetime.now(timezone.utc).date())
+    # Calculate today's date using Indian Standard Time.
+    india_tz = ZoneInfo("Asia/Kolkata")
+    today_ist = datetime.now(india_tz).date()
+
+    # Convert IST day boundaries to UTC for database comparison.
+    today_start = datetime.combine(
+        today_ist,
+        time.min,
+        tzinfo=india_tz,
+    ).astimezone(timezone.utc)
+
+    tomorrow_start = datetime.combine(
+        today_ist + timedelta(days=1),
+        time.min,
+        tzinfo=india_tz,
+    ).astimezone(timezone.utc)
 
     category_rows = (
         db.query(Article.category, func.count(Article.id))
@@ -394,7 +410,10 @@ def dashboard_stats(db: Session = Depends(get_db)):
             func.count(func.distinct(Article.source_name))
         ).scalar() or 0,
         "today": db.query(func.count(Article.id))
-        .filter(Article.first_fetched_at >= today_start)
+        .filter(
+            Article.first_fetched_at >= today_start,
+            Article.first_fetched_at < tomorrow_start,
+        )
         .scalar() or 0,
         "duplicates": db.query(
             func.coalesce(func.sum(CollectionRun.duplicates), 0)
@@ -411,7 +430,6 @@ def dashboard_stats(db: Session = Depends(get_db)):
         .order_by(CollectionRun.started_at.desc())
         .first(),
     }
-
 
 
 @app.get("/api/agents/status")
@@ -453,7 +471,6 @@ def agent_status(db: Session = Depends(get_db)):
         })
 
     return result
-
 
 
 def _analytics_rows(db: Session) -> list[tuple[Article, ArticleAnalytics]]:
