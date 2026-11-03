@@ -1,9 +1,6 @@
 name: INFORVEX Automatic News Collection
 
 on:
-  schedule:
-    - cron: "17 */2 * * *"
-      timezone: "Asia/Kolkata"
   workflow_dispatch:
 
 jobs:
