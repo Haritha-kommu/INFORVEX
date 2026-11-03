@@ -6,7 +6,7 @@ from datetime import date, datetime, time, timedelta, timezone
 from zoneinfo import ZoneInfo
 from contextlib import asynccontextmanager
 
-from fastapi import Depends, FastAPI, Header, HTTPException, Query
+from fastapi import BackgroundTasks, Depends, FastAPI, Header, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import and_, func, or_
 from sqlalchemy.orm import Session
@@ -19,7 +19,7 @@ from .agents.orchestration import (
     run_collection,
 )
 from .config import settings
-from .database import engine, ensure_schema, get_db
+from .database import SessionLocal, engine, ensure_schema, get_db
 from .geo_reference import GEOGRAPHY, canonical_name, geography_options, resolve_location
 from .models import AgentExecution, Article, ArticleAnalytics, CollectionRun, FeedExecution
 from .schemas import ArticleResponse, CollectionResponse
@@ -654,6 +654,31 @@ def collection_status(db: Session = Depends(get_db)):
         "duplicates": run.duplicates,
         "failed": run.failed,
         "error": run.error,
+    }
+
+
+def _run_collection_in_background() -> None:
+    """Run collection with a dedicated database session outside the HTTP request."""
+    db = SessionLocal()
+    try:
+        run_collection(db)
+    except Exception:
+        logging.exception("Background news collection failed")
+    finally:
+        db.close()
+
+
+@app.post("/api/collection/trigger", status_code=202)
+def collection_trigger(
+    background_tasks: BackgroundTasks,
+    authorization: str | None = Header(default=None),
+):
+    """Accept an authenticated collection request and execute it in the background."""
+    _require_admin(authorization)
+    background_tasks.add_task(_run_collection_in_background)
+    return {
+        "status": "accepted",
+        "message": "News collection has been queued in the background. Check /api/collection/status for progress.",
     }
 
 
