@@ -56,7 +56,7 @@ def cleanup_old_news() -> dict:
         }
 
     db = SessionLocal()
-    owner_id = -time.time_ns()
+    owner_id = -(time.time_ns() % 2_147_483_647) - 1
     lock_acquired = False
 
     try:
