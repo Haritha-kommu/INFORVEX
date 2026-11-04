@@ -23,7 +23,12 @@ from .database import SessionLocal, engine, ensure_schema, get_db
 from .geo_reference import GEOGRAPHY, canonical_name, geography_options, resolve_location
 from .models import AgentExecution, Article, ArticleAnalytics, CollectionRun, FeedExecution
 from .schemas import ArticleResponse, CollectionResponse
-from .scheduler import scheduler as collection_scheduler, start_scheduler, stop_scheduler
+from .scheduler import (
+    cleanup_old_news,
+    scheduler as collection_scheduler,
+    start_scheduler,
+    stop_scheduler,
+)
 
 logging.basicConfig(level=settings.log_level)
 
@@ -170,6 +175,20 @@ def _require_admin(authorization: str | None) -> None:
         and authorization != f"Bearer {settings.admin_api_token}"
     ):
         raise HTTPException(401, "Administrative authorization is required")
+
+
+def _require_retention_admin(authorization: str | None) -> None:
+    if not settings.admin_api_token:
+        raise HTTPException(
+            status_code=503,
+            detail="Administrative API is not configured",
+        )
+
+    if authorization != f"Bearer {settings.admin_api_token}":
+        raise HTTPException(
+            status_code=401,
+            detail="Administrative authorization is required",
+        )
 
 
 @asynccontextmanager
@@ -705,6 +724,18 @@ def collection_run(
         failed=run.failed,
         errors=errors,
     )
+@app.post("/api/retention/cleanup")
+def retention_cleanup(
+    authorization: str | None = Header(default=None),
+):
+    _require_retention_admin(authorization)
+
+    try:
+        result = cleanup_old_news()
+    except RuntimeError as exc:
+        raise HTTPException(500, str(exc)) from exc
+
+    return result
 
 
 @app.get("/api/sources")
