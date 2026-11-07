@@ -66,7 +66,7 @@ const NAV_ITEMS = [
   { id: 'all-news', label: 'News Collection', icon: Rss },
   { id: 'category', label: 'News Segregation', icon: Layers3 },
   { id: 'geography', label: 'Geographic Filtering', icon: MapPin },
-  { id: 'analytics', label: 'NLP Agent / Analytics', icon: ChartNoAxesCombined },
+  { id: 'analytics', label: 'News Analytics', icon: ChartNoAxesCombined },
   { id: 'agents', label: 'AI Agent Monitoring', icon: Bot },
   { id: 'history', label: 'Collection History', icon: History },
   { id: 'settings', label: 'Settings', icon: Settings },
@@ -400,11 +400,10 @@ function GeoFilterBar({
         {pending
           ? 'Selection changed — click Apply filter to update the news list.'
           : appliedLocation
-            ? `Applied location: ${appliedLocation}${
-                resultCount === null
-                  ? ''
-                  : ` · ${formatNumber(resultCount)} matching articles`
-              }. Articles without stored location data are excluded.`
+            ? `Applied location: ${appliedLocation}${resultCount === null
+              ? ''
+              : ` · ${formatNumber(resultCount)} matching articles`
+            }. Articles without stored location data are excluded.`
             : 'No location filter applied. Choose a country to narrow the news list.'}
       </div>
     </div>
@@ -549,9 +548,8 @@ function ReaderQuickFilters({
       >
         {pending
           ? 'You have changed filters. Apply them to update your news feed.'
-          : `${formatNumber(resultCount)} matching articles${
-              appliedFilters.source ? ` from ${appliedFilters.source}` : ''
-            }.`}
+          : `${formatNumber(resultCount)} matching articles${appliedFilters.source ? ` from ${appliedFilters.source}` : ''
+          }.`}
       </p>
     </div>
   )
@@ -749,7 +747,7 @@ function AgentPanel({ agents }) {
     ['Database Management Agent', 'Database Agent', 'Validates and stores article records'],
     ['News Segregation Agent', 'Segregation Agent', 'Applies explainable category rules'],
     ['Geographical Filtering Agent', 'Geography Agent', 'Checks validated geographic metadata'],
-    ['News Analytics Agent', 'NLP Agent', 'Analyzes stored articles for sentiment and entities'],
+    ['News Analytics Agent', 'News Analytics Agent', 'Analyzes stored articles for sentiment and entities'],
   ]
 
   const agentIcons = {
@@ -1684,10 +1682,10 @@ function App() {
                   <span>
                     {stats?.last_collection
                       ? `Latest update ${formatDate(
-                          stats.last_collection.completed_at ||
-                            stats.last_collection.started_at,
-                          true,
-                        )}. Stored articles are shown below.`
+                        stats.last_collection.completed_at ||
+                        stats.last_collection.started_at,
+                        true,
+                      )}. Stored articles are shown below.`
                       : 'Stored articles from your configured sources are shown below.'}
                   </span>
                 </div>
@@ -1794,9 +1792,8 @@ function App() {
                       .map((source) => (
                         <button
                           type="button"
-                          className={`source-shortcut ${
-                            appliedFilters.source === source ? 'selected' : ''
-                          }`}
+                          className={`source-shortcut ${appliedFilters.source === source ? 'selected' : ''
+                            }`}
                           key={source}
                           onClick={() => applyFilters({ source })}
                         >
@@ -1863,9 +1860,8 @@ function App() {
                 <button
                   type="button"
                   key={item.name}
-                  className={`category-card ${
-                    appliedFilters.category === item.name ? 'selected' : ''
-                  }`}
+                  className={`category-card ${appliedFilters.category === item.name ? 'selected' : ''
+                    }`}
                   onClick={() =>
                     applyFilters({
                       category:
@@ -1967,10 +1963,10 @@ function App() {
                   }) === 'Location unknown'
                     ? 'Articles with available location data'
                     : getLocation({
-                        country: appliedFilters.country,
-                        state: appliedFilters.state,
-                        district: appliedFilters.district,
-                      })
+                      country: appliedFilters.country,
+                      state: appliedFilters.state,
+                      district: appliedFilters.district,
+                    })
                 }
               />
 
@@ -2248,16 +2244,15 @@ function App() {
                 <div className="automation-status-block">
                   <span className="status-badge success">
                     <i />
-                    GitHub Actions schedule configured
+                    cron-job.org schedule configured
                   </span>
 
                   <strong>Automatic collection every 2 hours</strong>
 
                   <p>
-                    GitHub Actions is configured to trigger the collection
-                    workflow every 2 hours, giving 12 scheduled runs per day.
-                    This schedule operates independently of the backend
-                    scheduler.
+                    cron-job.org is configured to trigger the collection endpoint
+                    every 2 hours, giving 12 scheduled runs per day.
+                    This schedule operates independently of the backend scheduler.
                   </p>
                 </div>
 
@@ -2283,7 +2278,7 @@ function App() {
 
                   <div>
                     <span>Schedule source</span>
-                    <strong>GitHub Actions workflow</strong>
+                    <strong>cron-job.org</strong>
                   </div>
 
                   <div>
@@ -2298,12 +2293,12 @@ function App() {
               <div className="metadata-note">
                 <ShieldCheck size={17} />
                 <span>
-                  The GitHub Actions workflow is configured independently of
+                  The cron-job.org schedule is configured independently of
                   the backend scheduler. The backend scheduler status above
                   reports only the backend process; it does not determine
-                  whether GitHub Actions is scheduled. Collection history
+                  whether cron-job.org is scheduled. Collection history
                   does not identify whether an individual run was triggered
-                  manually or by GitHub Actions.
+                  manually or by cron-job.org.
                 </span>
               </div>
 
@@ -2356,17 +2351,17 @@ function App() {
                   </p>
                 )}
               </div>
-
               <div className="metadata-note">
                 <ShieldCheck size={17} />
                 <span>
-                  News retention is configured for 7 days by the backend.
-                  Automatic cleanup execution has not been verified, so do
-                  not assume old records are being deleted automatically.
+                  News retention is configured for 4 days.
+                  Daily automatic cleanup is scheduled through GitHub Actions.
+                  A scheduled cleanup execution has been verified, deleting
+                  276 articles and 276 analytics records older than the
+                  retention period.
                 </span>
               </div>
             </section>
-
             <section className="panel">
               <SectionHeading
                 eyebrow="CONFIGURED RSS / ATOM FEEDS"
