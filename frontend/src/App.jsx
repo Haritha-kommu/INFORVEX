@@ -1037,8 +1037,7 @@ function AnalyticsPage({ analytics, loading, onRetry }) {
       <div className="analytics-disclaimer">
         <ChartNoAxesCombined size={17} />
         <span>
-          Machine-generated estimates from analyzed stored articles. Results may
-          be incomplete until the optional agent has processed the collection.
+          Machine-generated estimates based on analyzed stored articles. Sentiment and keyword results are estimates and may vary with source content.
         </span>
       </div>
 
@@ -1084,6 +1083,29 @@ function AnalyticsPage({ analytics, loading, onRetry }) {
                 <Tooltip />
               </PieChart>
             </ResponsiveContainer>
+
+            <div className="sentiment-legend">
+              {analytics.sentiment.map((entry, index) => {
+                const total = analytics.sentiment.reduce(
+                  (sum, item) => sum + Number(item.value || 0),
+                  0,
+                )
+                const percentage = total
+                  ? ((Number(entry.value || 0) / total) * 100).toFixed(1)
+                  : '0.0'
+
+                return (
+                  <div className="sentiment-legend-item" key={entry.name}>
+                    <span
+                      className="legend-dot"
+                      style={{ background: chartColors[index] }}
+                    />
+                    <span>{entry.name}</span>
+                    <strong>{percentage}%</strong>
+                  </div>
+                )
+              })}
+            </div>
           </div>
         </section>
 
