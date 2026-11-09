@@ -601,7 +601,11 @@ function ArticleRow({ article, compact = false }) {
           {article.title}
         </a>
 
-        {article.summary && <p className="article-summary">{article.summary}</p>}
+        {article.summary && (
+          <p className="article-summary">
+            {cleanArticleSummary(article.summary)}
+          </p>
+        )}
 
         <div className="article-footer">
           <span className="article-publisher">
@@ -673,7 +677,9 @@ function NewsTable({
                   {article.title}
                 </a>
                 <span className="table-summary">
-                  {article.summary || 'No summary provided by source.'}
+                  {article.summary
+                    ? cleanArticleSummary(article.summary)
+                    : 'No summary provided by source.'}
                 </span>
               </td>
 
@@ -981,6 +987,25 @@ function CollectionHistoryPage({ history, loading }) {
       </section>
     </section>
   )
+}
+function cleanArticleSummary(value) {
+  if (!value) return ''
+
+  const html = String(value)
+    .replace(/<br\s*\/?>/gi, ' ')
+    .replace(
+      /<\/?(p|div|li|ul|ol|h[1-6]|blockquote)\b[^>]*>/gi,
+      ' ',
+    )
+
+  const parsed = new DOMParser().parseFromString(
+    html,
+    'text/html',
+  )
+
+  return (parsed.body.textContent || '')
+    .replace(/\s+/g, ' ')
+    .trim()
 }
 
 function AnalyticsPage({ analytics, loading, onRetry }) {
@@ -1530,7 +1555,7 @@ function App() {
     ],
     geography: [
       'Regional News',
-      'Filter articles by verified country, state or province, and district metadata.',
+      'Filter articles by country, state or province, and district using stored article location metadata.',
     ],
     'all-news': [
       'All News',
@@ -1943,7 +1968,7 @@ function App() {
                 <h2>Explore news by location</h2>
                 <p>
                   Choose a country, then state or province, then district. Only
-                  verified article metadata is used for matches.
+                  stored article location metadata is used for matches.
                 </p>
               </div>
             </section>
@@ -1998,7 +2023,7 @@ function App() {
                 onRetry={reload}
                 onClear={clearFilters}
                 activeFilters={appliedFilters}
-                emptyText="No articles with matching verified location data were found. This is different from the reference dropdown list."
+                emptyText="No articles with matching stored location data were found. This is different from the reference dropdown list."
               />
 
               <Pagination

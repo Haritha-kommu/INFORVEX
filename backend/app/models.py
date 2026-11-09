@@ -4,6 +4,7 @@ from sqlalchemy import DateTime, Index, Integer, String, Text, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column
 
 from .database import Base
+from sqlalchemy.dialects.postgresql import JSONB
 
 
 def utc_now() -> datetime:
@@ -108,3 +109,19 @@ class CollectionLock(Base):
     run_id: Mapped[int | None] = mapped_column(Integer, nullable=True)
     acquired_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     heartbeat_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+class GeographyReference(Base):
+    __tablename__ = "geography_reference"
+
+    key: Mapped[str] = mapped_column(String(40), primary_key=True)
+    data: Mapped[dict] = mapped_column(JSONB, nullable=False)
+    version: Mapped[str] = mapped_column(
+        String(30),
+        default="1.0",
+        nullable=False,
+    )
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        default=utc_now,
+        onupdate=utc_now,
+    )

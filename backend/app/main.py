@@ -20,8 +20,21 @@ from .agents.orchestration import (
 )
 from .config import settings
 from .database import SessionLocal, engine, ensure_schema, get_db
-from .geo_reference import GEOGRAPHY, canonical_name, geography_options, resolve_location
-from .models import AgentExecution, Article, ArticleAnalytics, CollectionRun, FeedExecution
+from .geo_reference import (
+    GEOGRAPHY,
+    canonical_name,
+    geography_options,
+    load_geography_from_database,
+    resolve_location,
+)
+from .models import (
+    AgentExecution,
+    Article,
+    ArticleAnalytics,
+    CollectionRun,
+    FeedExecution,
+    GeographyReference,
+)
 from .schemas import ArticleResponse, CollectionResponse
 from .scheduler import (
     cleanup_old_news,
@@ -106,34 +119,27 @@ def _merge_location_values(*groups: list[str]) -> list[str]:
     return sorted(by_key.values(), key=str.casefold)
 
 
+
 def _valid_location_count(db: Session) -> int:
-    valid_paths = []
+    valid_countries = set()
+    valid_states = {}
+    valid_districts = {}
 
     for country, data in GEOGRAPHY.items():
-        country_match = func.lower(func.trim(Article.country)) == country.casefold()
-
-        valid_paths.append(
-            and_(
-                country_match,
-                Article.state.is_(None),
-                Article.district.is_(None),
-            )
-        )
+        country_key = country.casefold()
+        valid_countries.add(country_key)
+        valid_states[country_key] = set()
+        valid_districts[country_key] = {}
 
         for state, state_data in data["states"].items():
+            state_key = state.casefold()
+            valid_states[country_key].add(state_key)
+            valid_districts[country_key][state_key] = set()
+
             districts = (
                 state_data.get("districts", [])
                 if isinstance(state_data, dict)
                 else state_data
-            )
-            state_match = func.lower(func.trim(Article.state)) == state.casefold()
-
-            valid_paths.append(
-                and_(
-                    country_match,
-                    state_match,
-                    Article.district.is_(None),
-                )
             )
 
             for district in districts:
@@ -144,21 +150,50 @@ def _valid_location_count(db: Session) -> int:
                 )
 
                 if district_name:
-                    valid_paths.append(
-                        and_(
-                            country_match,
-                            state_match,
-                            func.lower(func.trim(Article.district))
-                            == district_name.casefold(),
-                        )
+                    valid_districts[country_key][state_key].add(
+                        district_name.casefold()
                     )
 
-    return (
-        db.query(func.count(Article.id))
-        .filter(or_(*valid_paths))
-        .scalar()
-        or 0
-    )
+    valid_count = 0
+
+    rows = db.query(
+        Article.country,
+        Article.state,
+        Article.district,
+    ).yield_per(1000)
+
+    for country, state, district in rows:
+        if not isinstance(country, str):
+            continue
+
+        country_key = country.strip().casefold()
+
+        if country_key not in valid_countries:
+            continue
+
+        if state is None and district is None:
+            valid_count += 1
+            continue
+
+        if not isinstance(state, str):
+            continue
+
+        state_key = state.strip().casefold()
+
+        if state_key not in valid_states[country_key]:
+            continue
+
+        if district is None:
+            valid_count += 1
+            continue
+
+        if not isinstance(district, str):
+            continue
+
+        if district.strip().casefold() in valid_districts[country_key][state_key]:
+            valid_count += 1
+
+    return valid_count
 
 
 def _utc_boundary(value: date, *, end: bool = False) -> datetime:
@@ -194,6 +229,7 @@ def _require_retention_admin(authorization: str | None) -> None:
 @asynccontextmanager
 async def lifespan(_: FastAPI):
     ensure_schema(engine)
+    load_geography_from_database()
     start_scheduler()
     yield
     stop_scheduler()
@@ -950,7 +986,7 @@ def geo_options_endpoint(
         "states": states,
         "districts": districts,
         "coverage": "Reference hierarchy plus locations already stored on articles",
-        "source": "backend/data/geography.json and stored article metadata",
+        "source": "Supabase PostgreSQL geography_reference and stored article metadata",
     }
 
 

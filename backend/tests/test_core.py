@@ -234,7 +234,9 @@ def test_reference_contains_all_country_names_but_partial_admin_coverage():
         item.get("name") if isinstance(item, dict) else item
         for item in GEOGRAPHY["India"]["states"]["Maharashtra"]["districts"]
     }
-    assert GEOGRAPHY["Brazil"]["states"] == {}
+    assert len(GEOGRAPHY["Brazil"]["states"]) == 27
+    assert len(GEOGRAPHY["France"]["states"]) == 13
+    assert len(GEOGRAPHY["Australia"]["states"]) == 9
 
 
 def test_location_coverage_requires_valid_country_hierarchy():

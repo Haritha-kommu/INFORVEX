@@ -1,0 +1,390 @@
+{
+  "dataset": "France administrative geography candidate",
+  "last_checked": "2026-11-08",
+  "coverage": "13 regions and confidently matched ADM2 departments.",
+  "sources": {
+    "adm1": {
+      "boundaryID": "FRA-ADM1-19338628",
+      "year": "2022",
+      "source": "Institut national de l'information géographique et forestière (IGN-F)",
+      "license": "Etalab Open License 2.0",
+      "expectedUnits": "13",
+      "downloadedFeatures": 13
+    },
+    "adm2": {
+      "boundaryID": "FRA-ADM2-29444166",
+      "year": "2022",
+      "source": "Institut national de l'information géographique et forestière (IGN-F)",
+      "license": "Etalab Open License 2.0",
+      "expectedUnits": "96",
+      "downloadedFeatures": 96
+    }
+  },
+  "matching": {
+    "method": "50 percent polygon overlap, then unique representative point",
+    "matched": 96,
+    "unmatched": 0,
+    "ambiguous": 0,
+    "unmatchedNames": [],
+    "ambiguousNames": []
+  },
+  "countries": {
+    "France": {
+      "states": {
+        "Île-de-France": {
+          "aliases": [],
+          "districts": [
+            {
+              "name": "Essonne"
+            },
+            {
+              "name": "Hauts-de-Seine"
+            },
+            {
+              "name": "Paris"
+            },
+            {
+              "name": "Seine-et-Marne"
+            },
+            {
+              "name": "Seine-Saint-Denis"
+            },
+            {
+              "name": "Val-d'Oise"
+            },
+            {
+              "name": "Val-de-Marne"
+            },
+            {
+              "name": "Yvelines"
+            }
+          ]
+        },
+        "Centre-Val de Loire": {
+          "aliases": [],
+          "districts": [
+            {
+              "name": "Cher"
+            },
+            {
+              "name": "Eure-et-Loir"
+            },
+            {
+              "name": "Indre"
+            },
+            {
+              "name": "Indre-et-Loire"
+            },
+            {
+              "name": "Loir-et-Cher"
+            },
+            {
+              "name": "Loiret"
+            }
+          ]
+        },
+        "Bourgogne-Franche-Comté": {
+          "aliases": [],
+          "districts": [
+            {
+              "name": "Côte-d'Or"
+            },
+            {
+              "name": "Doubs"
+            },
+            {
+              "name": "Haute-Saône"
+            },
+            {
+              "name": "Jura"
+            },
+            {
+              "name": "Nièvre"
+            },
+            {
+              "name": "Saône-et-Loire"
+            },
+            {
+              "name": "Territoire de Belfort"
+            },
+            {
+              "name": "Yonne"
+            }
+          ]
+        },
+        "Normandie": {
+          "aliases": [],
+          "districts": [
+            {
+              "name": "Calvados"
+            },
+            {
+              "name": "Eure"
+            },
+            {
+              "name": "Manche"
+            },
+            {
+              "name": "Orne"
+            },
+            {
+              "name": "Seine-Maritime"
+            }
+          ]
+        },
+        "Hauts-de-France": {
+          "aliases": [],
+          "districts": [
+            {
+              "name": "Aisne"
+            },
+            {
+              "name": "Nord"
+            },
+            {
+              "name": "Oise"
+            },
+            {
+              "name": "Pas-de-Calais"
+            },
+            {
+              "name": "Somme"
+            }
+          ]
+        },
+        "Grand Est": {
+          "aliases": [],
+          "districts": [
+            {
+              "name": "Ardennes"
+            },
+            {
+              "name": "Aube"
+            },
+            {
+              "name": "Bas-Rhin"
+            },
+            {
+              "name": "Haut-Rhin"
+            },
+            {
+              "name": "Haute-Marne"
+            },
+            {
+              "name": "Marne"
+            },
+            {
+              "name": "Meurthe-et-Moselle"
+            },
+            {
+              "name": "Meuse"
+            },
+            {
+              "name": "Moselle"
+            },
+            {
+              "name": "Vosges"
+            }
+          ]
+        },
+        "Pays de la Loire": {
+          "aliases": [],
+          "districts": [
+            {
+              "name": "Loire-Atlantique"
+            },
+            {
+              "name": "Maine-et-Loire"
+            },
+            {
+              "name": "Mayenne"
+            },
+            {
+              "name": "Sarthe"
+            },
+            {
+              "name": "Vendée"
+            }
+          ]
+        },
+        "Bretagne": {
+          "aliases": [],
+          "districts": [
+            {
+              "name": "Côtes d'Armor"
+            },
+            {
+              "name": "Finistère"
+            },
+            {
+              "name": "Ille-et-Vilaine"
+            },
+            {
+              "name": "Morbihan"
+            }
+          ]
+        },
+        "Nouvelle-Aquitaine": {
+          "aliases": [],
+          "districts": [
+            {
+              "name": "Charente"
+            },
+            {
+              "name": "Charente-Maritime"
+            },
+            {
+              "name": "Corrèze"
+            },
+            {
+              "name": "Creuse"
+            },
+            {
+              "name": "Deux-Sèvres"
+            },
+            {
+              "name": "Dordogne"
+            },
+            {
+              "name": "Gironde"
+            },
+            {
+              "name": "Haute-Vienne"
+            },
+            {
+              "name": "Landes"
+            },
+            {
+              "name": "Lot-et-Garonne"
+            },
+            {
+              "name": "Pyrénées-Atlantiques"
+            },
+            {
+              "name": "Vienne"
+            }
+          ]
+        },
+        "Occitanie": {
+          "aliases": [],
+          "districts": [
+            {
+              "name": "Ariège"
+            },
+            {
+              "name": "Aude"
+            },
+            {
+              "name": "Aveyron"
+            },
+            {
+              "name": "Gard"
+            },
+            {
+              "name": "Gers"
+            },
+            {
+              "name": "Haute-Garonne"
+            },
+            {
+              "name": "Hautes-Pyrénées"
+            },
+            {
+              "name": "Hérault"
+            },
+            {
+              "name": "Lot"
+            },
+            {
+              "name": "Lozère"
+            },
+            {
+              "name": "Pyrénées-Orientales"
+            },
+            {
+              "name": "Tarn"
+            },
+            {
+              "name": "Tarn-et-Garonne"
+            }
+          ]
+        },
+        "Auvergne-Rhône-Alpes": {
+          "aliases": [],
+          "districts": [
+            {
+              "name": "Ain"
+            },
+            {
+              "name": "Allier"
+            },
+            {
+              "name": "Ardèche"
+            },
+            {
+              "name": "Cantal"
+            },
+            {
+              "name": "Drôme"
+            },
+            {
+              "name": "Haute-Loire"
+            },
+            {
+              "name": "Haute-Savoie"
+            },
+            {
+              "name": "Isère"
+            },
+            {
+              "name": "Loire"
+            },
+            {
+              "name": "Puy-de-Dôme"
+            },
+            {
+              "name": "Rhône"
+            },
+            {
+              "name": "Savoie"
+            }
+          ]
+        },
+        "Provence-Alpes-Côte d'Azur": {
+          "aliases": [],
+          "districts": [
+            {
+              "name": "Alpes-de-Haute-Provence"
+            },
+            {
+              "name": "Alpes-Maritimes"
+            },
+            {
+              "name": "Bouches-du-Rhône"
+            },
+            {
+              "name": "Hautes-Alpes"
+            },
+            {
+              "name": "Var"
+            },
+            {
+              "name": "Vaucluse"
+            }
+          ]
+        },
+        "Corse": {
+          "aliases": [],
+          "districts": [
+            {
+              "name": "Corse-du-Sud"
+            },
+            {
+              "name": "Haute-Corse"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
