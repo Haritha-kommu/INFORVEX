@@ -3,7 +3,7 @@ import re
 
 CATEGORY_RULES = {
     "Politics": ("election", "parliament", "president", "minister", "government", "policy", "vote", "senate", "congress", "democracy"),
-    "Business": ("business", "market", "stock", "economy", "company", "finance", "earnings", "revenue", "trade", "bank", "investment", "inflation"),
+    "Business": ("business", "market", "stock", "economy", "company", "finance", "earnings", "revenue", "trade", "bank", "investment", "inflation", "export", "exports", "import", "imports"),
     "Technology": ("technology", "software", "artificial intelligence", " ai ", "cyber", "startup", "computer", "chip", "smartphone", "robot"),
     "Sports": ("sports", "football", "cricket", "basketball", "tennis", "match", "tournament", "athlete", "league", "olympic", "championship"),
     "Health": ("health", "hospital", "medical", "vaccine", "disease", "doctor", "medicine", "cancer", "mental health", "public health"),
@@ -36,9 +36,37 @@ def _normalize_text(value: str | None) -> str:
     return f" {normalized.strip()} "
 
 
+
 def classify_article(title: str, summary: str | None = None) -> tuple[str, str]:
+    # Specific trade-related headline terms take priority
+    # over generic political terms such as "government".
+    normalized_title = _normalize_text(title)
+
+    trade_keywords = (
+        "export",
+        "exports",
+        "exporter",
+        "exporters",
+        "import",
+        "imports",
+        "importer",
+        "importers",
+    )
+
+    matched_trade = next(
+        (
+            keyword
+            for keyword in trade_keywords
+            if f" {keyword} " in normalized_title
+        ),
+        None,
+    )
+
+    if matched_trade:
+        return "Business", f"Matched title keyword: {matched_trade}"
+
     # Prefer the headline because it usually describes the main subject.
-    category, matched = _match_category(_normalize_text(title))
+    category, matched = _match_category(normalized_title)
 
     if category:
         return category, f"Matched title keyword: {matched}"

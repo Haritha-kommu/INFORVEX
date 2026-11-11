@@ -113,6 +113,7 @@ def test_database_initialization_and_duplicate_urls(database):
         assert article.url_hash
 
 
+
 def test_category_classification_and_explanation():
     category, explanation = classify_article("Election policy announced")
     assert category == "Politics"
@@ -123,7 +124,8 @@ def test_category_classification_and_explanation():
     assert classify_article("Film festival announces lineup")[0] == "Entertainment"
     assert classify_article("Astronomy research discovers exoplanet")[0] == "Science"
     assert classify_article("A headline without known keywords")[0] == "Other"
-        # A mobile app mentioned in a murder-trial summary
+
+    # A mobile app mentioned in a murder-trial summary
     # must not make the article Technology news.
     assert classify_article(
         "Double murder trial continues",
@@ -136,6 +138,13 @@ def test_category_classification_and_explanation():
         "School students win spelling bee",
         "A smartphone is used during the event",
     )[0] == "Education"
+
+    # Export restrictions should be classified as Business.
+    assert classify_article(
+        "Government prohibits export of lithium-ion battery waste",
+        "Exporters will no longer be allowed to export the material",
+    )[0] == "Business"
+
 
 
 def test_url_normalization():
