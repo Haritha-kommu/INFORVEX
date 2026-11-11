@@ -123,6 +123,19 @@ def test_category_classification_and_explanation():
     assert classify_article("Film festival announces lineup")[0] == "Entertainment"
     assert classify_article("Astronomy research discovers exoplanet")[0] == "Science"
     assert classify_article("A headline without known keywords")[0] == "Other"
+        # A mobile app mentioned in a murder-trial summary
+    # must not make the article Technology news.
+    assert classify_article(
+        "Double murder trial continues",
+        "Police evidence mentions a mobile app",
+    )[0] == "Other"
+
+    # The headline's Education category takes priority
+    # over an unrelated Technology keyword in the summary.
+    assert classify_article(
+        "School students win spelling bee",
+        "A smartphone is used during the event",
+    )[0] == "Education"
 
 
 def test_url_normalization():
