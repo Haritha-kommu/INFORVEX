@@ -144,6 +144,23 @@ def test_category_classification_and_explanation():
         "Government prohibits export of lithium-ion battery waste",
         "Exporters will no longer be allowed to export the material",
     )[0] == "Business"
+    # Sports headlines should be recognized from team and league names.
+    assert classify_article(
+        "Jayson Tatum gives former teammate Jaylen Brown frosty greeting as Celtics beat 76ers",
+        "Tatum and Brown meet in an NBA game",
+    )[0] == "Sports"
+
+    # Impeachment and political party headlines should be Politics.
+    assert classify_article(
+        "GOP branded sinking ship as Republicans block efforts to impeach Hegseth",
+        "House Republicans block the impeachment effort",
+    )[0] == "Politics"
+
+    # Business headlines about advertising and cost reductions.
+    assert classify_article(
+        "ITV to cut costs amid falling advertising sales",
+        "Advertising revenue slowdown forces company to reduce spending",
+    )[0] == "Business"
 
 
 

@@ -2,10 +2,10 @@
 import re
 
 CATEGORY_RULES = {
-    "Politics": ("election", "parliament", "president", "minister", "government", "policy", "vote", "senate", "congress", "democracy"),
+    "Politics": ("election", "parliament", "president", "minister", "government", "policy", "vote", "senate", "congress", "democracy", "gop", "republican", "republicans", "impeach", "impeachment", "politics", "political"),
     "Business": ("business", "market", "stock", "economy", "company", "finance", "earnings", "revenue", "trade", "bank", "investment", "inflation", "export", "exports", "import", "imports"),
     "Technology": ("technology", "software", "artificial intelligence", " ai ", "cyber", "startup", "computer", "chip", "smartphone", "robot"),
-    "Sports": ("sports", "football", "cricket", "basketball", "tennis", "match", "tournament", "athlete", "league", "olympic", "championship"),
+    "Sports": ("sports", "football", "cricket", "basketball", "tennis", "match", "tournament", "athlete", "league", "olympic", "championship", "nba"),
     "Health": ("health", "hospital", "medical", "vaccine", "disease", "doctor", "medicine", "cancer", "mental health", "public health"),
     "Education": ("education", "school", "university", "student", "exam", "college", "classroom", "curriculum", "scholarship"),
     "Entertainment": ("movie", "music", "actor", "film", "celebrity", "entertainment", "television", "streaming", "concert", "festival", "box office"),
