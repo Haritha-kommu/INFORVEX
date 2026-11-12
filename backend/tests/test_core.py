@@ -149,6 +149,11 @@ def test_category_classification_and_explanation():
         "Jayson Tatum gives former teammate Jaylen Brown frosty greeting as Celtics beat 76ers",
         "Tatum and Brown meet in an NBA game",
     )[0] == "Sports"
+    # The word "league" alone should not classify a civic award as Sports.
+    assert classify_article(
+        "Swachh Survekshan: Guntur wins Super Swachh League award",
+        "Guntur finishes third among cities in the cleanliness rankings",
+    )[0] == "Other"
 
     # Impeachment and political party headlines should be Politics.
     assert classify_article(
