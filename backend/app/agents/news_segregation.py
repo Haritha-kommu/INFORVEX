@@ -65,6 +65,22 @@ def classify_article(title: str, summary: str | None = None) -> tuple[str, str]:
     if matched_trade:
         return "Business", f"Matched title keyword: {matched_trade}"
 
+    # Specific subject overrides take priority over generic keywords.
+    subject_overrides = (
+        ("Health", ("mental health", "mental health centre", "mental health centres",
+                    "mental health center", "mental health centers")),
+        ("Technology", ("website hack", "website hacked", "website hacking",
+                        "cyberattack", "cyber attack")),
+    )
+
+    for override_category, keywords in subject_overrides:
+        matched = next(
+            (keyword for keyword in keywords if f" {keyword} " in normalized_title),
+            None,
+        )
+        if matched:
+            return override_category, f"Matched title subject: {matched}"
+
     # Prefer the headline because it usually describes the main subject.
     category, matched = _match_category(normalized_title)
 

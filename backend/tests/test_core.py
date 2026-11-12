@@ -144,6 +144,21 @@ def test_category_classification_and_explanation():
         "Government prohibits export of lithium-ion battery waste",
         "Exporters will no longer be allowed to export the material",
     )[0] == "Business"
+
+    # Specific subjects should take priority over the generic word government.
+    assert classify_article(
+        "Kerala High Court orders government to ready adequate medicines and vehicles at mental health centres",
+    )[0] == "Health"
+
+    assert classify_article(
+        "Hacker claims to have sold VCE exam papers after government website hack",
+    )[0] == "Technology"
+
+    # Genuine political headlines should still be classified as Politics.
+    assert classify_article(
+        "Government announces new election policy",
+    )[0] == "Politics"
+
     # Sports headlines should be recognized from team and league names.
     assert classify_article(
         "Jayson Tatum gives former teammate Jaylen Brown frosty greeting as Celtics beat 76ers",
